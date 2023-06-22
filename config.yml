@@ -1,0 +1,6 @@
+api_base: https://api.hku.hk
+api_key: 
+api_type: azure
+api_version: 2023-03-15-preview
+engine: chatgpt-4
+model: gpt-4
