@@ -1,10 +1,12 @@
 # StreamlitChatGPT
-A Basic Raw ChatGPT interface in streamlit.
+A Basic Raw ChatGPT interface in streamlit. Created by @AdamTomkins. Source Code: https://github.com/AdamRTomkins/StreamlitChatGPT. Modified to support Azure API by @HouWayne.
 
-You can find this hosted on a shared Streamlit at [https://basic-chat-gpt.streamlit.app/](https://basic-chat-gpt.streamlit.app/)
+Please input api key in `config.yml` file before running the app with `streamlit run demo.py`.
+
+Why we need this: Azure API need us to input base_url (ours: api.hku.hk), but almost all other apps choose to guess the base_url be like "YOUR_RESOURCE_NAME.openai.azure.com/", defined in Azure official Doc. Before they fix this, we need to use this app to specify the base_url.
 ## Requirements
 
-This Demo requires an [OpenAI API](https://openai.com/blog/openai-api/) key to use the Chat Completion API.
+This Demo requires users to have an OpenAI API key or Azure API key. Please input your API key in `config.yml` file.
 
 ## Installation
 
