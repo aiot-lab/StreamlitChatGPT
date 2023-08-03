@@ -6,6 +6,7 @@ import streamlit as st
 import yaml
 import json
 import datetime
+import requests
 
 # Set up Session State
 if "messages" not in st.session_state:
@@ -59,12 +60,24 @@ def main():
             if openai.api_type == "openai":
                 r = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
             elif openai.api_type == "azure":
-                r = openai.ChatCompletion.create(engine=st.session_state.engine, messages=messages)
+                # Use curl instead of the python SDK
+                url = f'{openai.api_base}/openai/deployments/{st.session_state.engine}/chat/completions?api-version=2023-03-15-preview'
+                payload = {
+                    "model": st.session_state.engine,
+                    "messages": messages,
+                }
+
+                headers = {
+                    "Content-Type": "application/json",
+                    "api-key": f"{openai.api_key}"
+                }
+                r = requests.post(url, json=payload, headers=headers).json()
+                # r = openai.ChatCompletion.create(engine=st.session_state.engine, messages=messages)
             else:
                 raise ValueError("Invalid API Type")
             tokens = r["usage"]["total_tokens"]
-            cost = round((tokens / 1000) * 0.02, 3)
-            st.info(f"Message uses {tokens} tokens for a total cost of {cost} cents")
+            # cost = round((tokens / 1000) * 0.02, 3)
+            st.info(f"Message uses {tokens} tokens.")
 
             # with st.expander("Result"):
             #     st.info("Your Output Response")
